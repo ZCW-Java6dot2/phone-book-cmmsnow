@@ -1,11 +1,9 @@
 package com.zipcodewilmington.phonebook;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 //import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
 
 /**
  * Created by leon on 1/23/18.
@@ -24,31 +22,63 @@ public class PhoneBook {
     }
 
     public void add(String name, String phoneNumber) {
+        if (phonebook.containsKey(name)){
+            List<String> numsList = phonebook.get(name);
+            numsList.add(phoneNumber);
+        } else {
+            List<String> phoneNums = new LinkedList<>();
+            phoneNums.add(phoneNumber);
+            phonebook.put(name, phoneNums);
+        }
+
     }
 
     public void addAll(String name, String... phoneNumbers) {
+        if (phonebook.containsKey(name)){
+            List<String> phoneNums = phonebook.get(name);
+            for (String number : phoneNumbers){
+                phoneNums.add(number);
+            }
+        } else {
+            List<String> phoneNums = new LinkedList<>();
+            for (String number : phoneNumbers){
+                phoneNums.add(number);
+            }
+            phonebook.put(name, phoneNums);
+        }
     }
 
     public void remove(String name) {
+        phonebook.remove(name);
     }
 
+    //Why is this angry?
     public Boolean hasEntry(String name) {
-        return null;
+        return phonebook.containsKey(name);
     }
 
     public List<String> lookup(String name) {
-        return null;
+        return phonebook.get(name);
     }
 
     public String reverseLookup(String phoneNumber)  {
-        return null;
+        Set<String> allKeys = phonebook.keySet();
+        for (String key : allKeys){
+            List<String> values = phonebook.get(key);
+            if(values.contains(phoneNumber)){
+                return key;
+            }
+        }
+        return "";
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        Set<String> contacts = phonebook.keySet();
+        List<String> contactsList = contacts.stream().collect(Collectors.toList());
+        return contactsList;
     }
 
     public Map<String, List<String>> getMap() {
-        return null;
+        return phonebook;
     }
 }
