@@ -14,11 +14,11 @@ public class PhoneBook {
     private final Map<String, List<String>> phonebook;
 
     public PhoneBook(Map<String, List<String>> map) {
-        this.phonebook = null;
+        this.phonebook = map;
     }
 
     public PhoneBook() {
-        this(null);
+        this.phonebook = new HashMap<>();
     }
 
     public void add(String name, String phoneNumber) {
@@ -54,7 +54,11 @@ public class PhoneBook {
 
     //Why is this angry?
     public Boolean hasEntry(String name) {
-        return phonebook.containsKey(name);
+        return this.phonebook.containsKey(name);
+    }
+
+    public Boolean hasEntry(String name, String phoneNumber) {
+        return (this.phonebook.containsKey(name) && this.phonebook.get(name).contains(phoneNumber)) ? true : false ;
     }
 
     public List<String> lookup(String name) {
