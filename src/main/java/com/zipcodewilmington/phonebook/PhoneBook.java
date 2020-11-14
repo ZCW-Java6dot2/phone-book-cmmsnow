@@ -22,19 +22,24 @@ public class PhoneBook {
     }
 
     public void add(String name, String phoneNumber) {
-        if (phonebook.containsKey(name)){
+        phonebook.put(name, Collections.singletonList(phoneNumber));
+
+        /*if (phonebook.containsKey(name)){
             List<String> numsList = phonebook.get(name);
             numsList.add(phoneNumber);
         } else {
             List<String> phoneNums = new LinkedList<>();
             phoneNums.add(phoneNumber);
             phonebook.put(name, phoneNums);
-        }
-
+        }*/
     }
 
     public void addAll(String name, String... phoneNumbers) {
-        if (phonebook.containsKey(name)){
+        for (int i=0 ; i<phoneNumbers.length;i++)
+        {
+            phonebook.put(name, Arrays.asList(phoneNumbers));
+        }
+        /*if (phonebook.containsKey(name)){
             List<String> phoneNums = phonebook.get(name);
             for (String number : phoneNumbers){
                 phoneNums.add(number);
@@ -45,20 +50,19 @@ public class PhoneBook {
                 phoneNums.add(number);
             }
             phonebook.put(name, phoneNums);
-        }
+        }/*
     }
 
     public void remove(String name) {
         phonebook.remove(name);
     }
 
-    //Why is this angry?
     public Boolean hasEntry(String name) {
         return this.phonebook.containsKey(name);
     }
 
     public Boolean hasEntry(String name, String phoneNumber) {
-        return (this.phonebook.containsKey(name) && this.phonebook.get(name).contains(phoneNumber)) ? true : false ;
+        return (this.phonebook.containsKey(name) && this.phonebook.get(name).contains(phoneNumber));
     }
 
     public List<String> lookup(String name) {
