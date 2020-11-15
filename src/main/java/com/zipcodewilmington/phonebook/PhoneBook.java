@@ -18,20 +18,11 @@ public class PhoneBook {
     }
 
     public PhoneBook() {
-        this.phonebook = new HashMap<>();
+        this.phonebook = new LinkedHashMap<>();
     }
 
     public void add(String name, String phoneNumber) {
         phonebook.put(name, Collections.singletonList(phoneNumber));
-
-        /*if (phonebook.containsKey(name)){
-            List<String> numsList = phonebook.get(name);
-            numsList.add(phoneNumber);
-        } else {
-            List<String> phoneNums = new LinkedList<>();
-            phoneNums.add(phoneNumber);
-            phonebook.put(name, phoneNums);
-        }*/
     }
 
     public void addAll(String name, String... phoneNumbers) {
@@ -39,18 +30,6 @@ public class PhoneBook {
         {
             phonebook.put(name, Arrays.asList(phoneNumbers));
         }
-        /*if (phonebook.containsKey(name)){
-            List<String> phoneNums = phonebook.get(name);
-            for (String number : phoneNumbers){
-                phoneNums.add(number);
-            }
-        } else {
-            List<String> phoneNums = new LinkedList<>();
-            for (String number : phoneNumbers){
-                phoneNums.add(number);
-            }
-            phonebook.put(name, phoneNums);
-        }/*
     }
 
     public void remove(String name) {
@@ -81,9 +60,7 @@ public class PhoneBook {
     }
 
     public List<String> getAllContactNames() {
-        Set<String> contacts = phonebook.keySet();
-        List<String> contactsList = contacts.stream().collect(Collectors.toList());
-        return contactsList;
+        return new ArrayList<>(phonebook.keySet());
     }
 
     public Map<String, List<String>> getMap() {
